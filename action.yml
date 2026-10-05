@@ -1,5 +1,5 @@
 name: Pine Check
-description: Check TradingView Pine Script files for backtest-vs-live traps (future data, unconfirmed HTF values, fill and cost assumptions) on every push.
+description: Check TradingView Pine Script for backtest-vs-live traps: future data, unconfirmed HTF values, fill and cost assumptions.
 author: jsymen1290
 branding:
   icon: check-circle
