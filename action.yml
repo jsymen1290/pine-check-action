@@ -1,0 +1,33 @@
+name: Pine Check
+description: Check TradingView Pine Script files for backtest-vs-live traps (future data, unconfirmed HTF values, fill and cost assumptions) on every push.
+author: jsymen1290
+branding:
+  icon: check-circle
+  color: blue
+inputs:
+  files:
+    description: Glob of Pine files to check (Python glob, recursive)
+    default: "**/*.pine"
+  mode:
+    description: "integrity (backtest-vs-live checks only) or lint (adds syntax and version checks)"
+    default: integrity
+  fail-on:
+    description: "error, warning or never"
+    default: error
+  api-key:
+    description: Pine Check API key (optional; without it the free trial of 30 checks a day applies)
+    default: ""
+  endpoint:
+    description: Service base URL
+    default: https://pine.pokt-agent.com
+runs:
+  using: composite
+  steps:
+    - shell: bash
+      env:
+        PC_FILES: ${{ inputs.files }}
+        PC_MODE: ${{ inputs.mode }}
+        PC_FAIL_ON: ${{ inputs.fail-on }}
+        PC_KEY: ${{ inputs.api-key }}
+        PC_ENDPOINT: ${{ inputs.endpoint }}
+      run: python3 "${{ github.action_path }}/pine_check.py"
